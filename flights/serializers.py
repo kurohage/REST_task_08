@@ -69,16 +69,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 		new_user.save()
 		return validated_data
 
-
-"""
-class SlugRelatedBookingField(serializers.SlugRelatedField):
-	def get_queryset(self):
-		queryset = self.queryset
-		if hasattr(self.root, 'booking_id'):
-			queryset = queryset.filter(date__lt=date.today(),user=self.root.user)
-		return queryset
-"""
-
+# Override what info is returned from a User model
 class UserInfoSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User	
@@ -104,6 +95,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 	#	return object.user.last_name
 
 	def get_user(self, object):
+		# The test expected the first & last names to be fed through a dictionary owned by a user object, so had to override the fields using a new class above
 		return UserInfoSerializer(instance=object.user, read_only=True).data
 
 	# return bookings that have already passed (old)
@@ -123,11 +115,3 @@ class ProfileSerializer(serializers.ModelSerializer):
 			return "Gold"
 		else:
 			return "Platinum"
-
-"""
-assigned_to = serializers.SlugRelatedField(
-   queryset=User.objects.all(),
-   slug_field='username',
-   style={'base_template': 'input.html'}
-)
-"""
