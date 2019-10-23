@@ -109,9 +109,11 @@ class ProfileSerializer(serializers.ModelSerializer):
 	def get_tier(self, object):
 		if (object.miles >= 0 and object.miles < 10000):
 			return "Blue"
-		elif (object.miles > 10000 and object.miles < 60000):
+		elif (object.miles >= 10000 and object.miles < 60000):
 			return "Silver"
-		elif (object.miles > 60000 and object.miles < 100000):
+		elif (object.miles >= 60000 and object.miles < 100000):
 			return "Gold"
-		else:
+		elif (object.miles >= 100000):
 			return "Platinum"
+		else:
+			return "Blue"
