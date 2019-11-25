@@ -79,7 +79,8 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 	#first_name = serializers.SerializerMethodField()
 	#last_name = serializers.SerializerMethodField()
-	user = serializers.SerializerMethodField()
+	#user = serializers.SerializerMethodField()
+	user = UserInfoSerializer()
 	past_bookings = serializers.SerializerMethodField()
 	tier = serializers.SerializerMethodField()
 	
@@ -94,9 +95,9 @@ class ProfileSerializer(serializers.ModelSerializer):
 	#def get_last_name(self, object):
 	#	return object.user.last_name
 
-	def get_user(self, object):
+	#def get_user(self, object):
 		# The test expected the first & last names to be fed through a dictionary owned by a user object, so had to override the fields using a new class above
-		return UserInfoSerializer(instance=object.user, read_only=True).data
+		#return UserInfoSerializer(instance=object.user, read_only=True).data
 
 	# return bookings that have already passed (old)
 	def get_past_bookings(self, object):
